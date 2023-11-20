@@ -46,6 +46,7 @@ public class Playmatch extends Application {
     public void toss(){
         Team team = choosing();
         Team loser = new Team();
+        System.out.println(""+team.getTeamName() +" won the toss!!");
         System.out.println("Type 'batting' to bat first \n Type 'balling' to bowl first");
         Scanner sc = new Scanner(System.in);
         team.setAction(sc.nextLine());
@@ -66,7 +67,7 @@ public class Playmatch extends Application {
             loser.setAction("batting");
         }
 
-        System.out.println(team.getTeamName() + "is "+team.getAction() + "first");
+        System.out.println(team.getTeamName() + " is "+team.getAction() + "first");
     }
 
     @Override
