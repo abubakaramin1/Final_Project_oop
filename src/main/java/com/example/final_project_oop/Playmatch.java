@@ -1,5 +1,4 @@
 package com.example.final_project_oop;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -349,7 +348,8 @@ public class Playmatch extends Application {
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
     }
 
-    private void addFive(){
+    private void addFive()
+    {
         batsman1.setRunsScored(batsman1.getRunsScored() + 5);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
         Player temp = new Player();
