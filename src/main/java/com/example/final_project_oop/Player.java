@@ -24,38 +24,47 @@ public class Player {
     }
 
     public void setRunsScored(int runsScored) {
+
         this.runsScored = runsScored;
     }
 
-    public Boolean getOut() {
+    public Boolean getOut()
+    {
         return isOut;
     }
 
     public void setOut(Boolean out) {
+
         isOut = out;
     }
 
     public String getHowOut() {
+
         return howOut;
     }
 
     public void setHowOut(String howOut) {
+
         this.howOut = howOut;
     }
 
     public String getName() {
+
         return name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
     public int getNumOfOvers() {
+
         return numOfOvers;
     }
 
     public void setNumOfOvers(int numOfOvers) {
+
         this.numOfOvers = numOfOvers;
     }
 
@@ -64,14 +73,17 @@ public class Player {
     }
 
     public void setOuts(int outs) {
+
         this.outs = outs;
     }
 
     public int getRunsGiven() {
+
         return runsGiven;
     }
 
-    public void setRunsGiven(int runsGiven) {
+    public void setRunsGiven(int runsGiven)
+    {
         this.runsGiven = runsGiven;
     }
 

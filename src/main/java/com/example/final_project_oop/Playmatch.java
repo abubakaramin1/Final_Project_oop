@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class Playmatch extends Application {
 
     Stage window;
+
     Scene scene,scene1,scene2;
     Team battingTeam;
     Team ballingTeam;
