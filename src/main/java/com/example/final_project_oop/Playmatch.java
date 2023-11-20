@@ -323,6 +323,7 @@ public class Playmatch extends Application {
 
     private void addOne(){
         batsman1.setRunsScored(batsman1.getRunsScored() + 1);
+        batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
         Player temp = new Player();
         temp = batsman1;
         batsman1 = batsman2;
@@ -330,11 +331,13 @@ public class Playmatch extends Application {
     }
 
     private void addTwo(){
-        batsman1.setRunsScored(bowler.getRunsScored() + 2);
+        batsman1.setRunsScored(batsman1.getRunsScored() + 2);
+        batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
     }
 
     private void addThree(){
-        batsman1.setRunsScored(bowler.getRunsScored() + 3);
+        batsman1.setRunsScored(batsman1.getRunsScored() + 3);
+        batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
         Player temp = new Player();
         temp = batsman1;
         batsman1 = batsman2;
@@ -343,10 +346,12 @@ public class Playmatch extends Application {
 
     private void addFour(){
         batsman1.setRunsScored(batsman1.getRunsScored()+ 4);
+        batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
     }
 
     private void addFive(){
-        batsman1.setRunsScored(bowler.getRunsScored() + 5);
+        batsman1.setRunsScored(batsman1.getRunsScored() + 5);
+        batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
         Player temp = new Player();
         temp = batsman1;
         batsman1 = batsman2;
@@ -355,5 +360,6 @@ public class Playmatch extends Application {
 
     private void addSix(){
         batsman1.setRunsScored(batsman1.getRunsScored()+ 6);
+        batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
     }
 }
