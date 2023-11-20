@@ -343,7 +343,8 @@ public class Playmatch extends Application {
         batsman2 = temp;
     }
 
-    private void addFour(){
+    private void addFour()
+    {
         batsman1.setRunsScored(batsman1.getRunsScored()+ 4);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
     }
@@ -358,7 +359,8 @@ public class Playmatch extends Application {
         batsman2 = temp;
     }
 
-    private void addSix(){
+    private void addSix()
+    {
         batsman1.setRunsScored(batsman1.getRunsScored()+ 6);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
     }
