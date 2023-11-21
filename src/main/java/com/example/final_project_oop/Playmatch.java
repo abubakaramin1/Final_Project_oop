@@ -34,6 +34,8 @@ public class Playmatch extends Application {
     Label l3 = new Label();
     Label l4 = new Label();
     Label l5 = new Label();
+    Label l6 = new Label();
+    Label l7 = new Label();
 
 
     public Team choosing(){
@@ -75,7 +77,7 @@ public class Playmatch extends Application {
         window = stage;
         team1.addTeam();
         team2.addTeam();
-         battingTeam =new Team();
+        battingTeam =new Team();
         toss();
         if (Objects.equals(team1.getAction(),"batting")){
             battingTeam = team1;
@@ -164,8 +166,12 @@ public class Playmatch extends Application {
         HBox hBox = new HBox();
         hBox.getChildren().addAll(run1,run2,run3,run4,run5,run6);
 
-        borderPane.setCenter(hBox);
+        borderPane.setBottom(hBox);
 
+
+        VBox vBox1 = new VBox();
+        vBox1.getChildren().addAll(l6,l7);
+        borderPane.setCenter(vBox1);
         scene2 = new Scene(borderPane);
         window.setScene(scene);
         window.show();
@@ -241,8 +247,7 @@ public class Playmatch extends Application {
         }
 
 
-        l3.setText(batsman1.getName());
-        l4.setText(batsman2.getName());
+
 
 
     }
@@ -317,7 +322,7 @@ public class Playmatch extends Application {
 
 
 
-        l5.setText(bowler.getName());
+
     }
 
     private void addOne(){
@@ -327,11 +332,14 @@ public class Playmatch extends Application {
         temp = batsman1;
         batsman1 = batsman2;
         batsman2 = temp;
+        updateBatsmanScores();
+
     }
 
     private void addTwo(){
         batsman1.setRunsScored(batsman1.getRunsScored() + 2);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
+        updateBatsmanScores();
     }
 
     private void addThree(){
@@ -341,12 +349,14 @@ public class Playmatch extends Application {
         temp = batsman1;
         batsman1 = batsman2;
         batsman2 = temp;
+        updateBatsmanScores();
     }
 
     private void addFour()
     {
         batsman1.setRunsScored(batsman1.getRunsScored()+ 4);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
+        updateBatsmanScores();
     }
 
     private void addFive()
@@ -357,11 +367,17 @@ public class Playmatch extends Application {
         temp = batsman1;
         batsman1 = batsman2;
         batsman2 = temp;
+        updateBatsmanScores();
     }
 
     private void addSix()
     {
         batsman1.setRunsScored(batsman1.getRunsScored()+ 6);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
+        updateBatsmanScores();
+    }
+    private void updateBatsmanScores() {
+        l6.setText(batsman1.getName()+"  "+batsman1.getRunsScored());
+        l7.setText(batsman2.getName()+"  "+batsman2.getRunsScored());
     }
 }
