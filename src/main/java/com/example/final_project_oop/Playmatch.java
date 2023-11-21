@@ -34,6 +34,8 @@ public class Playmatch extends Application {
     Label l3 = new Label();
     Label l4 = new Label();
     Label l5 = new Label();
+    Label l6 = new Label();
+    Label l7 = new Label();
 
 
     public Team choosing(){
@@ -164,8 +166,12 @@ public class Playmatch extends Application {
         HBox hBox = new HBox();
         hBox.getChildren().addAll(run1,run2,run3,run4,run5,run6);
 
-        borderPane.setCenter(hBox);
+        borderPane.setBottom(hBox);
 
+
+        VBox vBox1 = new VBox();
+        vBox1.getChildren().addAll(l6,l7);
+        borderPane.setCenter(vBox1);
         scene2 = new Scene(borderPane);
         window.setScene(scene);
         window.show();
@@ -323,45 +329,62 @@ public class Playmatch extends Application {
     private void addOne(){
         batsman1.setRunsScored(batsman1.getRunsScored() + 1);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
+        updateBatsmanScores();
         Player temp = new Player();
         temp = batsman1;
         batsman1 = batsman2;
         batsman2 = temp;
+
+
     }
 
     private void addTwo(){
         batsman1.setRunsScored(batsman1.getRunsScored() + 2);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
+        updateBatsmanScores();
     }
 
     private void addThree(){
         batsman1.setRunsScored(batsman1.getRunsScored() + 3);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
+        updateBatsmanScores();
         Player temp = new Player();
         temp = batsman1;
         batsman1 = batsman2;
         batsman2 = temp;
+
     }
 
     private void addFour()
     {
         batsman1.setRunsScored(batsman1.getRunsScored()+ 4);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
+        updateBatsmanScores();
     }
 
     private void addFive()
     {
         batsman1.setRunsScored(batsman1.getRunsScored() + 5);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
+        updateBatsmanScores();
         Player temp = new Player();
         temp = batsman1;
         batsman1 = batsman2;
         batsman2 = temp;
+
     }
 
     private void addSix()
     {
         batsman1.setRunsScored(batsman1.getRunsScored()+ 6);
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
+        updateBatsmanScores();
+    }
+    private void updateBatsmanScores() {
+        l6.setText(""+batsman1.getRunsScored());
+        l7.setText(""+batsman2.getRunsScored());
+    }
+    private void print(){
+        System.out.println("djfhgdshj");
     }
 }
