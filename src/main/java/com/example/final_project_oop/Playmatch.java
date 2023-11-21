@@ -387,4 +387,8 @@ public class Playmatch extends Application {
     private void print(){
         System.out.println("djfhgdshj");
     }
+    private void printkrna()
+    {
+        System.out.println("dfjksjgfsjdhf");
+    }
 }
