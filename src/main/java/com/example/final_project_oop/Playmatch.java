@@ -17,10 +17,8 @@ import java.util.Scanner;
 public class Playmatch extends Application {
 
     Stage window;
-
     Scene scene, scene1, scene2, scene3;
     Team battingTeam;
-
     Team ballingTeam;
 
     public static void main(String[] args) throws Exception {
@@ -161,7 +159,10 @@ public class Playmatch extends Application {
         Button run0 = new Button("0");
         run0.setOnAction(e -> addZero());
         Button out = new Button("Out");
-        out.setOnAction(e -> out());
+        out.setOnAction(e -> {
+            out();
+
+        });
 
 
         vBox3.getChildren().addAll(l3, l4, l5);
@@ -419,6 +420,8 @@ public class Playmatch extends Application {
 
 
         if (bowler.getBallsDelivered() == 6) {
+
+            bowler.setNumOfOvers(bowler.getNumOfOvers() + 1 );
             Label l8 = new Label("Select a new bowler:");
             CheckBox b1 = new CheckBox(ballingTeam.team.get(0).toString());
             CheckBox b2 = new CheckBox(ballingTeam.team.get(1).toString());
@@ -453,12 +456,23 @@ public class Playmatch extends Application {
 
         l6.setText(batsman1.getName() + "  " + batsman1.getRunsScored() + "  " + batsman1.getBallsPlayed());
         l7.setText(batsman2.getName() + "  " + batsman2.getRunsScored() + "  " + batsman2.getBallsPlayed());
-        bowlerScore.setText(bowler.getName() + "  " + bowler.getBallsDelivered() + "  " + bowler.getRunsGiven());
+        bowlerScore.setText(bowler.getName() + "  " + bowler.getBallsDelivered() + "  " + bowler.getRunsGiven() + "\n" +bowler.getNumOfOvers());
+
 
 
     }
 
     private void out() {
+
+        batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
+        bowler.setOuts(bowler.getOuts() + 1);
+
+        if (bowler.getBallsDelivered() < 6)
+        {
+            bowler.setBallsDelivered(bowler.getBallsDelivered() + 1);
+        }
+
+
         batsman1.setOut(true);
         battingTeam.battingSide.remove(batsman1);
         battingTeam.battingSide.remove(batsman2);
@@ -467,36 +481,48 @@ public class Playmatch extends Application {
 
         for (int i = 0; i < battingTeam.battingSide.size(); i++)
         {
-
                 checkBoxes.add(new CheckBox(battingTeam.battingSide.get(i).toString()));
-
         }
 
         VBox vBox = new VBox();
-vBox.getChildren().addAll(checkBoxes);
+        vBox.getChildren().addAll(checkBoxes);
 
         Button confirmButton = new Button("Confirm");
+
         confirmButton.setOnAction(e ->
         {
+
+
             for (int i = 0; i < checkBoxes.size(); i++)
             {
                 if (checkBoxes.get(i).isSelected())
                 {
 
                         batsman1 = battingTeam.battingSide.get(i);
-                        break;
+
+                      vBox.getChildren().clear();
+                      updateBatsmanScores();
+                      if (bowler.getBallsDelivered() == 6)
+                      {
+                      checkBalls();
+                      }
+                      else
+                      {
+                          window.setScene(scene2);
+                      }
+
 
                 }
             }
 
-            vBox.getChildren().clear();
-            updateBatsmanScores();
-            window.setScene(scene2);
+
         });
 
         vBox.getChildren().add(confirmButton);
         Scene newBatsmanScene = new Scene(vBox);
         window.setScene(newBatsmanScene);
+
+
     }
 
 }
