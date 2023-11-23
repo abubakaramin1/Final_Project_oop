@@ -5,11 +5,20 @@ public class Player {
     private String name;
     private int ballsPlayed;
     private int runsScored;
-    private Boolean isOut;
+    private Boolean isOut = false;
     private String howOut;
     private int numOfOvers;
     private int outs;
     private int runsGiven;
+    private int ballsDelivered;
+
+    public int getBallsDelivered() {
+        return ballsDelivered;
+    }
+
+    public void setBallsDelivered(int ballsDelivered) {
+        this.ballsDelivered = ballsDelivered;
+    }
 
     public int getBallsPlayed() {
         return ballsPlayed;
