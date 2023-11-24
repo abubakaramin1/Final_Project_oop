@@ -26,6 +26,7 @@ public class Playmatch extends Application {
     Scene scene, scene1, scene2, scene3;
     Team battingTeam = new Team();
     Team ballingTeam = new Team();
+    List<Player> battingSide;
 
     public static void main(String[] args) throws Exception {
 
@@ -80,6 +81,7 @@ public class Playmatch extends Application {
             if (battingRadioButton.isSelected())
             {
                 team.setAction("batting");
+
             } else if (bowlingRadioButton.isSelected())
             {
                 team.setAction("balling");
@@ -112,11 +114,13 @@ public class Playmatch extends Application {
             if (Objects.equals(team1.getAction(), "batting"))
             {
                 battingTeam = team1;
+                battingSide = new ArrayList<>(battingTeam.team);
             }
 
-            if (Objects.equals(team2.getAction(), "batting"))
+            else if (Objects.equals(team2.getAction(), "batting"))
             {
                 battingTeam = team2;
+                battingSide = new ArrayList<>(battingTeam.team);
             }
 
 
@@ -613,14 +617,15 @@ public class Playmatch extends Application {
 
 
         batsman1.setOut(true);
-        battingTeam.battingSide.remove(batsman1);
-        battingTeam.battingSide.remove(batsman2);
+
+        battingSide.remove(batsman1);
+        battingSide.remove(batsman2);
 
         List<CheckBox> checkBoxes = new ArrayList<>();
 
-        for (int i = 0; i < battingTeam.battingSide.size(); i++)
+        for (int i = 0; i < battingSide.size(); i++)
         {
-                checkBoxes.add(new CheckBox(battingTeam.battingSide.get(i).toString()));
+                checkBoxes.add(new CheckBox(battingSide.get(i).toString()));
         }
 
         VBox vBox = new VBox();
@@ -637,9 +642,9 @@ public class Playmatch extends Application {
                 if (checkBoxes.get(i).isSelected())
                 {
 
-                        batsman1 = battingTeam.battingSide.get(i);
+                        batsman1 = battingSide.get(i);
 
-                      vBox.getChildren().clear();
+                            vBox.getChildren().clear();
 
                       updateBatsmanScores();
 

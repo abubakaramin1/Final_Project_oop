@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Team {
     List<Player>  team = new ArrayList<>();
 
-    List<Player> battingSide = new ArrayList<>();
+
 
    private String teamName;
    private String action;
@@ -35,7 +35,8 @@ public class Team {
            team.add(new Player());
            counter++;
        }
-       battingSide = team;
+
+
    }
 
    public void addTeam(){
@@ -48,6 +49,7 @@ public class Team {
            team.get(counter).setName(sc.nextLine());
            counter++;
        }
+
    }
 
 
