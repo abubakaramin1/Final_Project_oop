@@ -1,13 +1,18 @@
 package com.example.final_project_oop;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -23,6 +28,7 @@ public class Playmatch extends Application {
     Team ballingTeam = new Team();
 
     public static void main(String[] args) throws Exception {
+
         launch();
     }
 
@@ -70,12 +76,14 @@ public class Playmatch extends Application {
         Button button = new Button("PLAY");
         button.setOnAction(e -> {
 
+
             if (battingRadioButton.isSelected())
             {
                 team.setAction("batting");
             } else if (bowlingRadioButton.isSelected())
             {
                 team.setAction("balling");
+
             }
             if (Objects.equals(team.getTeamName() , team1.getTeamName()))
             {
@@ -126,6 +134,30 @@ public class Playmatch extends Application {
             showLabel();
 
         });
+
+
+
+        battingRadioButton.setOnAction(event -> button.requestFocus());
+        battingRadioButton.setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ENTER)
+            {
+                battingRadioButton.setSelected(true);
+                team.setAction("batting");
+                 button.requestFocus();
+            }
+        });
+        bowlingRadioButton.setOnAction(event -> button.requestFocus());
+        bowlingRadioButton.setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ENTER)
+            {
+                bowlingRadioButton.setSelected(true);
+                team.setAction("balling");
+                button.requestFocus();
+            }
+        });
+
 
 
         VBox vBox = new VBox(label , battingRadioButton,bowlingRadioButton , button);
@@ -205,6 +237,13 @@ public class Playmatch extends Application {
         window.setTitle("Team Management");
         Button bb = new Button("Start Match");
         Scene scene4 = new Scene(bb);
+        scene4.setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ENTER)
+            {
+                bb.fire();
+            }
+        });
         window.setScene(scene4);
         Scene scene5 = addTeam1();
 
@@ -240,7 +279,9 @@ public class Playmatch extends Application {
 
         borderPane.setBottom(hBox);
         borderPane.setCenter(vBox1);
-
+        Button button = new Button("Scorecard");
+       borderPane.setRight(button);
+       button.setOnAction(e -> showScorecard());
 
 
         scene2 = new Scene(borderPane);
@@ -386,6 +427,8 @@ public class Playmatch extends Application {
 
         }
         updateBatsmanScores();
+
+
     }
 
     private void addOne()
@@ -628,17 +671,43 @@ public class Playmatch extends Application {
 
         TextField teamNameInput = new TextField();
         teamNameInput.setPromptText("Enter team name");
-
+        Button bbb = new Button("Toss");
 
         List<TextField> players = new ArrayList<>();
+        teamNameInput.setOnKeyPressed(e ->
+        {
+
+            if (e.getCode() == KeyCode.ENTER)
+            {
+                if (!players.isEmpty()) {
+                    players.get(0).requestFocus();
+                }
+            }
+        });
         for (int i = 0 ; i < team2.team.size() ; i++)
         {
             players.add(new TextField());
             players.get(i).setPromptText("Enter Player Name");
+            final int currentIndex = i;
+
+            players.get(i).setOnKeyPressed(e ->
+            {
+                if (e.getCode() == KeyCode.ENTER) {
+
+                    if (currentIndex < players.size() - 1) {
+
+                        players.get(currentIndex + 1).requestFocus();
+
+                    } else {
+                        bbb.requestFocus();
+                    }
+                }
+
+            });
 
         }
 
-        Button bbb = new Button("Toss");
+
         VBox vBox = new VBox();
         vBox.getChildren().add(teamNameInput);
         vBox.getChildren().addAll(players);
@@ -665,35 +734,107 @@ public class Playmatch extends Application {
 
 
 
-    private Scene addTeam1()
-    {
+    private Scene addTeam1() {
         TextField teamNameInput = new TextField();
         teamNameInput.setPromptText("Enter team name");
+        Button bbb = new Button("Add Team");
 
+        List<TextField> players = new ArrayList<>();
+        teamNameInput.setOnKeyPressed(e ->
+        {
 
-       List<TextField> players = new ArrayList<>();
-        for (int i = 0 ; i < team1.team.size() ; i++) {
+            if (e.getCode() == KeyCode.ENTER)
+            {
+                if (!players.isEmpty()) {
+                    players.get(0).requestFocus();
+                }
+            }
+        });
+
+        for (int i = 0; i < team1.team.size(); i++) {
             players.add(new TextField());
             players.get(i).setPromptText("Enter Player Name");
+            final int currentIndex = i;
+
+            players.get(i).setOnKeyPressed(e ->
+            {
+                if (e.getCode() == KeyCode.ENTER) {
+
+                    if (currentIndex < players.size() - 1) {
+                        players.get(currentIndex + 1).requestFocus();
+                    } else {
+                        bbb.requestFocus();
+                    }
+                }
+
+            });
+        }
+        
+
+
+        VBox vBox = new VBox();
+        vBox.getChildren().add(teamNameInput);
+        vBox.getChildren().addAll(players);
+        vBox.getChildren().add(bbb);
+        bbb.setOnAction(e ->
+        {
+            String teamName = teamNameInput.getText();
+            team1.setTeamName(teamName);
+            for (int i = 0; i < team1.team.size(); i++) {
+                String playerName = players.get(i).getText().trim();
+                team1.team.get(i).setName(playerName);
+            }
+            addTeam2();
+        });
+        return new Scene(vBox);
+    }
+
+
+        public void showScorecard()
+    {
+        BorderPane scorecardPane = new BorderPane();
+        VBox team1Score = createScorecardVBox(team1.getTeamName(), team1);
+        VBox team2Score = createScorecardVBox(team2.getTeamName(), team2);
+
+        HBox scorecardBox = new HBox(team1Score, team2Score);
+        scorecardBox.setSpacing(30);
+        Button button = new Button("Ball By Ball");
+        button.setOnAction( e -> window.setScene(scene2));
+        scorecardPane.setCenter(scorecardBox);
+        scorecardPane.setBottom(button);
+        Scene scorecardScene = new Scene(scorecardPane, 600, 400);
+        window.setScene(scorecardScene);
+    }
+    private VBox createScorecardVBox(String teamName, Team team) {
+        VBox vBox = new VBox();
+        vBox.setSpacing(10);
+
+        Label teamLabel = new Label(teamName);
+        teamLabel.setFont(new Font("Arial", 18));
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(5);
+
+        // Add column headers
+        gridPane.add(new Label("Player"), 0, 0);
+        gridPane.add(new Label("Runs"), 1, 0);
+        gridPane.add(new Label("Balls"), 2, 0);
+
+        // Add player details
+        for (int i = 0; i < team.team.size(); i++) {
+            Player player = team.team.get(i);
+            gridPane.add(new Label(player.getName()), 0, i + 1);
+            gridPane.add(new Label(String.valueOf(player.getRunsScored())), 1, i + 1);
+            gridPane.add(new Label(String.valueOf(player.getBallsPlayed())), 2, i + 1);
         }
 
-        Button bbb = new Button("Add Team");
-       VBox vBox = new VBox();
-       vBox.getChildren().add(teamNameInput);
-       vBox.getChildren().addAll(players);
-       vBox.getChildren().add(bbb);
-       bbb.setOnAction(e ->
-       {
-           String teamName = teamNameInput.getText();
-           team1.setTeamName(teamName);
-           for (int i = 0 ; i < team1.team.size() ; i++)
-           {
-               String playerName = players.get(i).getText().trim();
-               team1.team.get(i).setName(playerName);
-           }
-           addTeam2();
-       });
-        return new Scene(vBox);
+        vBox.getChildren().addAll(teamLabel, gridPane);
+        return vBox;
+    }
+
+
+
+
 
 
 
@@ -702,6 +843,6 @@ public class Playmatch extends Application {
 
 
 
-}
+
 
 
