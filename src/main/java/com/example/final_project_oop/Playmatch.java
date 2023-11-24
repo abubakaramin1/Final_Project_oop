@@ -3,22 +3,28 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 
 public class Playmatch extends Application {
 
@@ -62,6 +68,11 @@ public class Playmatch extends Application {
 
     public void toss()
     {
+
+        Font labelFont = Font.font("Arial",FontWeight.BOLD,40);
+        Color clr = Color.WHITE;
+
+
         Team team = choosing();
         Label label = new Label();
         label.setText(team.getTeamName() + " won the toss");
@@ -69,12 +80,28 @@ public class Playmatch extends Application {
         ToggleGroup toggleGroup = new ToggleGroup();
 
         RadioButton battingRadioButton = new RadioButton("Batting");
+        battingRadioButton.setFont(labelFont);
+        battingRadioButton.setTextFill(clr);
+        battingRadioButton.setPadding(new Insets(40));
         battingRadioButton.setToggleGroup(toggleGroup);
 
         RadioButton bowlingRadioButton = new RadioButton("Balling");
+        bowlingRadioButton.setTextFill(clr);
+        bowlingRadioButton.setFont(labelFont);
         bowlingRadioButton.setToggleGroup(toggleGroup);
+        bowlingRadioButton.setPadding(new Insets(40));
 
         Button button = new Button("PLAY");
+        button.setPrefSize(120,60);
+        Font buttonFont = Font.font("Arial",FontWeight.BOLD,15);
+        Color buttonClr = Color.WHITE;
+        button.setTextFill(buttonClr);
+        button.setFont(buttonFont);
+        button.setOnMouseEntered(e -> button.setCursor(Cursor.HAND));
+        button.setOnMouseExited(e -> button.setCursor(Cursor.DEFAULT));
+        BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
+        Background background2 = new Background(backgroundFill);
+        button.setBackground(background2);
         button.setOnAction(e -> {
 
 
@@ -134,7 +161,7 @@ public class Playmatch extends Application {
                 ballingTeam = team2;
             }
 
-            label2.setText(team.getTeamName() + " has choose for " +team.getAction() + " first");
+            label2.setText(team.getTeamName() + " has chosen for " +team.getAction() + " first");
             showLabel();
 
         });
@@ -163,16 +190,57 @@ public class Playmatch extends Application {
         });
 
 
-
+        label.setTextFill(clr);
+        label.setFont(labelFont);
         VBox vBox = new VBox(label , battingRadioButton,bowlingRadioButton , button);
+        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        //Calculate the width and height based on the screen size
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenWidth = primaryScreenBounds.getWidth();
+        double screenHeight = primaryScreenBounds.getHeight();
 
+        BackgroundImage backgroundImage1 = new BackgroundImage(backgroundImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true));
+        Background background = new Background(backgroundImage1);
+        vBox.setBackground(background);
+        vBox.setAlignment(Pos.CENTER);
         Scene scene4 = new Scene(vBox);
         window.setScene(scene4);
     }
     public void showLabel()
     {
+        Font labelFont = Font.font("Arial",FontWeight.BOLD,40);
+        Color clr = Color.WHITE;
+
         Button button = new Button("START MATCH");
-        VBox vBox = new VBox(label2,button);
+        button.setPrefSize(150,60);
+        button.setPadding(new Insets(10));
+        Font buttonFont = Font.font("Arial",FontWeight.BOLD,15);
+        Color buttonClr = Color.WHITE;
+        button.setTextFill(buttonClr);
+        button.setFont(buttonFont);
+        button.setOnMouseEntered(e -> button.setCursor(Cursor.HAND));
+        button.setOnMouseExited(e -> button.setCursor(Cursor.DEFAULT));
+        BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
+        Background background2 = new Background(backgroundFill);
+        button.setBackground(background2);
+
+        VBox vBox = new VBox();
+        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        //Calculate the width and height based on the screen size
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenWidth = primaryScreenBounds.getWidth();
+        double screenHeight = primaryScreenBounds.getHeight();
+
+        BackgroundImage backgroundImage1 = new BackgroundImage(backgroundImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true));
+        Background background = new Background(backgroundImage1);
+        vBox.setBackground(background);
+        vBox.setAlignment(Pos.CENTER);
+
+        label2.setTextFill(clr);
+        label2.setFont(labelFont);
+        label2.setPadding(new Insets(10));
+
+        vBox.getChildren().addAll(label2,button);
         button.setOnAction(e -> showBattingTeam());
         Scene scene4 = new Scene(vBox);
         window.setScene(scene4);
@@ -180,21 +248,75 @@ public class Playmatch extends Application {
 
     public void showBattingTeam()
     {
+        Font labelFont = Font.font("Arial",FontWeight.BOLD,20);
+        Color clr = Color.WHITE;
         Label l1 = new Label("Select 2 batsmen:");
+        Font font = Font.font("Arial",FontWeight.BOLD,40);
+
+        l1.setTextFill(clr);
+        l1.setFont(font);
+
+        l1.setPadding(new Insets(10));
         CheckBox p1 = new CheckBox(battingTeam.team.get(0).toString());
+        p1.setPadding(new Insets(10));
+        p1.setFont(labelFont);
+        p1.setTextFill(clr);
         CheckBox p2 = new CheckBox(battingTeam.team.get(1).toString());
+        p2.setPadding(new Insets(10));
+        p2.setFont(labelFont);
+        p2.setTextFill(clr);
         CheckBox p3 = new CheckBox(battingTeam.team.get(2).toString());
+        p3.setPadding(new Insets(10));
+        p3.setFont(labelFont);
+        p3.setTextFill(clr);
         CheckBox p4 = new CheckBox(battingTeam.team.get(3).toString());
+        p4.setPadding(new Insets(10));
+        p4.setFont(labelFont);
+        p4.setTextFill(clr);
         CheckBox p5 = new CheckBox(battingTeam.team.get(4).toString());
+        p5.setPadding(new Insets(10));
+        p5.setFont(labelFont);
+        p5.setTextFill(clr);
         CheckBox p6 = new CheckBox(battingTeam.team.get(5).toString());
+        p6.setPadding(new Insets(10));
+        p6.setFont(labelFont);
+        p6.setTextFill(clr);
         CheckBox p7 = new CheckBox(battingTeam.team.get(6).toString());
+        p7.setPadding(new Insets(10));
+        p7.setFont(labelFont);
+        p7.setTextFill(clr);
         CheckBox p8 = new CheckBox(battingTeam.team.get(7).toString());
+        p8.setPadding(new Insets(10));
+        p8.setFont(labelFont);
+        p8.setTextFill(clr);
         CheckBox p9 = new CheckBox(battingTeam.team.get(8).toString());
+        p9.setPadding(new Insets(10));
+        p9.setFont(labelFont);
+        p9.setTextFill(clr);
         CheckBox p10 = new CheckBox(battingTeam.team.get(9).toString());
+        p10.setPadding(new Insets(10));
+        p10.setFont(labelFont);
+        p10.setTextFill(clr);
         CheckBox p11 = new CheckBox(battingTeam.team.get(10).toString());
+        p11.setPadding(new Insets(10));
+        p11.setFont(labelFont);
+        p11.setTextFill(clr);
 
 
         Button b1 = new Button("Confirm");
+
+
+        b1.setPrefSize(150,60);
+        b1.setPadding(new Insets(10));
+        Font buttonFont = Font.font("Arial",FontWeight.BOLD,15);
+        Color buttonClr = Color.WHITE;
+        b1.setTextFill(buttonClr);
+        b1.setFont(buttonFont);
+        b1.setOnMouseEntered(e -> b1.setCursor(Cursor.HAND));
+        b1.setOnMouseExited(e -> b1.setCursor(Cursor.DEFAULT));
+        BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
+        Background background2 = new Background(backgroundFill);
+        b1.setBackground(background2);
         b1.setOnAction(e ->
         {
             handle1(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
@@ -203,44 +325,151 @@ public class Playmatch extends Application {
 
 
         VBox vBox = new VBox();
+        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        //Calculate the width and height based on the screen size
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenWidth = primaryScreenBounds.getWidth();
+        double screenHeight = primaryScreenBounds.getHeight();
+
+        BackgroundImage backgroundImage1 = new BackgroundImage(backgroundImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true));
+        Background background = new Background(backgroundImage1);
+        vBox.setBackground(background);
         vBox.getChildren().addAll(l1, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, b1);
+        vBox.setAlignment(Pos.CENTER);
         scene = new Scene(vBox);
         window.setScene(scene);
     }
     public void showBallingTeam()
     {
-        Label l2 = new Label("Select a baller:");
+        Label l2 = new Label("Select a bowler:");
+        Font labelFont = Font.font("Arial",FontWeight.BOLD,20);
+        Color clr = Color.WHITE;
+
+        Font font = Font.font("Arial",FontWeight.BOLD,40);
+
+        l2.setTextFill(clr);
+        l2.setFont(font);
+
+        l2.setPadding(new Insets(10));
+
 
         CheckBox pa = new CheckBox(ballingTeam.team.get(0).toString());
+        pa.setPadding(new Insets(10));
+        pa.setFont(labelFont);
+        pa.setTextFill(clr);
         CheckBox pb = new CheckBox(ballingTeam.team.get(1).toString());
+        pb.setPadding(new Insets(10));
+        pb.setFont(labelFont);
+        pb.setTextFill(clr);
         CheckBox pc = new CheckBox(ballingTeam.team.get(2).toString());
+        pc.setPadding(new Insets(10));
+        pc.setFont(labelFont);
+        pc.setTextFill(clr);
         CheckBox pd = new CheckBox(ballingTeam.team.get(3).toString());
+        pd.setPadding(new Insets(10));
+        pd.setFont(labelFont);
+        pd.setTextFill(clr);
         CheckBox pe = new CheckBox(ballingTeam.team.get(4).toString());
+        pe.setPadding(new Insets(10));
+        pe.setFont(labelFont);
+        pe.setTextFill(clr);
         CheckBox pf = new CheckBox(ballingTeam.team.get(5).toString());
+        pf.setPadding(new Insets(10));
+        pf.setFont(labelFont);
+        pf.setTextFill(clr);
         CheckBox pg = new CheckBox(ballingTeam.team.get(6).toString());
+        pg.setPadding(new Insets(10));
+        pg.setFont(labelFont);
+        pg.setTextFill(clr);
         CheckBox ph = new CheckBox(ballingTeam.team.get(7).toString());
+        ph.setPadding(new Insets(10));
+        ph.setFont(labelFont);
+        ph.setTextFill(clr);
         CheckBox pi = new CheckBox(ballingTeam.team.get(8).toString());
+        pi.setPadding(new Insets(10));
+        pi.setFont(labelFont);
+        pi.setTextFill(clr);
         CheckBox pj = new CheckBox(ballingTeam.team.get(9).toString());
+        pj.setPadding(new Insets(10));
+        pj.setFont(labelFont);
+        pj.setTextFill(clr);
         CheckBox pk = new CheckBox(ballingTeam.team.get(10).toString());
+        pk.setPadding(new Insets(10));
+        pk.setFont(labelFont);
+        pk.setTextFill(clr);
 
 
         Button b2 = new Button("Confirm");
+        b2.setPrefSize(150,60);
+        b2.setPadding(new Insets(10));
+        Font buttonFont = Font.font("Arial",FontWeight.BOLD,15);
+        Color buttonClr = Color.WHITE;
+        b2.setTextFill(buttonClr);
+        b2.setFont(buttonFont);
+        b2.setOnMouseEntered(e -> b2.setCursor(Cursor.HAND));
+        b2.setOnMouseExited(e -> b2.setCursor(Cursor.DEFAULT));
+        BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
+        Background background2 = new Background(backgroundFill);
+        b2.setBackground(background2);
         b2.setOnAction(e -> {
             handle2(pa, pb, pc, pd, pe, pf, pg, ph, pi, pj, pk);
             window.setScene(scene2);
         });
 
         VBox vBox2 = new VBox();
+        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        //Calculate the width and height based on the screen size
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenWidth = primaryScreenBounds.getWidth();
+        double screenHeight = primaryScreenBounds.getHeight();
+
+        BackgroundImage backgroundImage1 = new BackgroundImage(backgroundImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true));
+        Background background = new Background(backgroundImage1);
+        vBox2.setBackground(background);
         vBox2.getChildren().addAll(l2, pa, pb, pc, pd, pe, pf, pg, ph, pi, pj, pk, b2);
+        vBox2.setAlignment(Pos.CENTER);
         scene1 = new Scene(vBox2);
         window.setScene(scene1);
     }
     @Override
     public void start(Stage stage) throws Exception {
+        StackPane homepage = new StackPane();
         window = stage;
         window.setTitle("Team Management");
         Button bb = new Button("Start Match");
-        Scene scene4 = new Scene(bb);
+        bb.setMinSize(100,100);
+
+        BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
+        Background background2 = new Background(backgroundFill);
+        bb.setBackground(background2);
+
+        Rectangle rectangle = new Rectangle(10, 10, 80, 80);
+        rectangle.setArcWidth(80);
+        rectangle.setArcHeight(60);
+        bb.setShape(rectangle);
+        bb.setOnMouseEntered(e -> bb.setCursor(Cursor.HAND));
+        bb.setOnMouseExited(e -> bb.setCursor(Cursor.DEFAULT));
+
+
+        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+         //Calculate the width and height based on the screen size
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenWidth = primaryScreenBounds.getWidth();
+        double screenHeight = primaryScreenBounds.getHeight();
+
+        BackgroundImage backgroundImage1 = new BackgroundImage(backgroundImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true));
+        Background background = new Background(backgroundImage1);
+        Font customFont = Font.font("Arial", FontWeight.BOLD ,30);
+        bb.setFont(customFont);
+        Color customColor = Color.WHITE;
+        bb.setTextFill(customColor);
+        bb.setUnderline(true);
+
+        bb.setBackground(background2);
+        homepage.setBackground(background);
+        homepage.getChildren().addAll(bb);
+        Scene scene4 = new Scene(homepage);
+
         scene4.setOnKeyPressed(e ->
         {
             if (e.getCode() == KeyCode.ENTER)
@@ -248,7 +477,9 @@ public class Playmatch extends Application {
                 bb.fire();
             }
         });
+
         window.setScene(scene4);
+
         Scene scene5 = addTeam1();
 
         bb.setOnAction(e -> window.setScene(scene5));
@@ -267,10 +498,11 @@ public class Playmatch extends Application {
         run6.setOnAction(e -> addSix());
         Button run0 = new Button("0");
         run0.setOnAction(e -> addZero());
+        Button wide = new Button("wide");
+        wide.setOnAction( e -> wideBall());
         Button out = new Button("Out");
         out.setOnAction(e -> {
             out();
-
         });
 
 
@@ -279,7 +511,7 @@ public class Playmatch extends Application {
         borderPane.setLeft(vBox3);
 
         HBox hBox = new HBox();
-        hBox.getChildren().addAll(run0, run1, run2, run3, run4, run5, run6, out);
+        hBox.getChildren().addAll(run0, run1, run2, run3, run4, run5, run6,wide, out);
 
         borderPane.setBottom(hBox);
         borderPane.setCenter(vBox1);
@@ -289,7 +521,10 @@ public class Playmatch extends Application {
 
 
         scene2 = new Scene(borderPane);
-//        window.setScene(scene);
+        window.setWidth(screenWidth);
+        window.setHeight(screenHeight);
+
+
         window.show();
 
     }
@@ -533,6 +768,11 @@ public class Playmatch extends Application {
         updateBatsmanScores();
     }
 
+    private void wideBall(){
+        batsman1.setRunsScored(batsman1.getRunsScored() + 1);
+        updateBatsmanScores();
+    }
+
     private void checkBalls()
     {
         if (bowler.getBallsDelivered() == 6) {
@@ -676,7 +916,23 @@ public class Playmatch extends Application {
 
         TextField teamNameInput = new TextField();
         teamNameInput.setPromptText("Enter team name");
+        teamNameInput.setMaxWidth(180);
+        teamNameInput.setPrefHeight(40);
+
         Button bbb = new Button("Toss");
+        HBox buttonBox = new HBox(bbb);
+        buttonBox.setAlignment(Pos.CENTER_RIGHT);
+        buttonBox.setPadding(new Insets(30,30,30,30));
+        bbb.setPrefSize(120,60);
+        Font buttonFont = Font.font("Arial",FontWeight.BOLD,15);
+        Color buttonClr = Color.WHITE;
+        bbb.setTextFill(buttonClr);
+        bbb.setFont(buttonFont);
+        bbb.setOnMouseEntered(e -> bbb.setCursor(Cursor.HAND));
+        bbb.setOnMouseExited(e -> bbb.setCursor(Cursor.DEFAULT));
+        BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
+        Background background2 = new Background(backgroundFill);
+        bbb.setBackground(background2);
 
         List<TextField> players = new ArrayList<>();
         teamNameInput.setOnKeyPressed(e ->
@@ -693,6 +949,8 @@ public class Playmatch extends Application {
         {
             players.add(new TextField());
             players.get(i).setPromptText("Enter Player Name");
+            players.get(i).setMaxWidth(180);
+            players.get(i).setPrefHeight(60);
             final int currentIndex = i;
 
             players.get(i).setOnKeyPressed(e ->
@@ -712,12 +970,36 @@ public class Playmatch extends Application {
 
         }
 
+        Label teamLabel = new Label("Team 2:");
+        Font teamFont = Font.font("Arial",FontWeight.BOLD,20);
+        teamLabel.setFont(teamFont);
+        Color teamClr = Color.WHITE;
+        teamLabel.setTextFill(teamClr);
+
+
+        Label PlayersLabel = new Label("Players:");
+        PlayersLabel.setFont(teamFont);
+        PlayersLabel.setTextFill(teamClr);
+
+        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        //Calculate the width and height based on the screen size
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenWidth = primaryScreenBounds.getWidth();
+        double screenHeight = primaryScreenBounds.getHeight();
+
+        BackgroundImage backgroundImage1 = new BackgroundImage(backgroundImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true));
+        Background background = new Background(backgroundImage1);
 
         VBox vBox = new VBox();
-        vBox.getChildren().add(teamNameInput);
+        vBox.setBackground(background);
+        vBox.getChildren().addAll(teamLabel,teamNameInput,PlayersLabel);
         vBox.getChildren().addAll(players);
-        vBox.getChildren().add(bbb);
+        vBox.getChildren().add(buttonBox);
+        vBox.setSpacing(15);
+        vBox.setPadding(new Insets(50));
+        vBox.setAlignment(Pos.CENTER);
         Scene scene4 = new Scene(vBox);
+
         bbb.setOnAction(e ->
         {
             String teamName = teamNameInput.getText();
@@ -742,7 +1024,22 @@ public class Playmatch extends Application {
     private Scene addTeam1() {
         TextField teamNameInput = new TextField();
         teamNameInput.setPromptText("Enter team name");
+        teamNameInput.setMaxWidth(180);
+        teamNameInput.setPrefHeight(40);
         Button bbb = new Button("Add Team");
+        HBox buttonBox = new HBox(bbb);
+        buttonBox.setAlignment(Pos.CENTER_RIGHT);
+        buttonBox.setPadding(new Insets(30,30,30,30));
+        bbb.setPrefSize(120,60);
+        Font buttonFont = Font.font("Arial",FontWeight.BOLD,15);
+        Color buttonClr = Color.WHITE;
+        bbb.setTextFill(buttonClr);
+        bbb.setFont(buttonFont);
+        bbb.setOnMouseEntered(e -> bbb.setCursor(Cursor.HAND));
+        bbb.setOnMouseExited(e -> bbb.setCursor(Cursor.DEFAULT));
+        BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
+        Background background2 = new Background(backgroundFill);
+        bbb.setBackground(background2);
 
         List<TextField> players = new ArrayList<>();
         teamNameInput.setOnKeyPressed(e ->
@@ -759,6 +1056,8 @@ public class Playmatch extends Application {
         for (int i = 0; i < team1.team.size(); i++) {
             players.add(new TextField());
             players.get(i).setPromptText("Enter Player Name");
+            players.get(i).setMaxWidth(180);
+            players.get(i).setPrefHeight(60);
             final int currentIndex = i;
 
             players.get(i).setOnKeyPressed(e ->
@@ -776,11 +1075,36 @@ public class Playmatch extends Application {
         }
         
 
+        Label teamLabel = new Label("Team 1:");
+        Font teamFont = Font.font("Arial",FontWeight.BOLD,20);
+        teamLabel.setFont(teamFont);
+        Color teamClr = Color.WHITE;
+        teamLabel.setTextFill(teamClr);
+
+
+        Label PlayersLabel = new Label("Players:");
+        PlayersLabel.setFont(teamFont);
+        PlayersLabel.setTextFill(teamClr);
+
+
+        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        //Calculate the width and height based on the screen size
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenWidth = primaryScreenBounds.getWidth();
+        double screenHeight = primaryScreenBounds.getHeight();
+
+        BackgroundImage backgroundImage1 = new BackgroundImage(backgroundImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true));
+        Background background = new Background(backgroundImage1);
 
         VBox vBox = new VBox();
-        vBox.getChildren().add(teamNameInput);
+        vBox.setBackground(background);
+        vBox.getChildren().addAll(teamLabel,teamNameInput,PlayersLabel);
         vBox.getChildren().addAll(players);
-        vBox.getChildren().add(bbb);
+        vBox.getChildren().add(buttonBox);
+        vBox.setSpacing(15);
+        vBox.setPadding(new Insets(50));
+        vBox.setAlignment(Pos.CENTER);
+
         bbb.setOnAction(e ->
         {
             String teamName = teamNameInput.getText();
@@ -839,12 +1163,14 @@ public class Playmatch extends Application {
 
 
 
+}
 
 
 
 
 
-    }
+
+
 
 
 
