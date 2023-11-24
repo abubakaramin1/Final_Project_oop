@@ -30,7 +30,8 @@ public class Team {
 
     public Team(){
        int counter =0;
-       while (counter!=11){
+       while (counter!=11)
+       {
            team.add(new Player());
            counter++;
        }

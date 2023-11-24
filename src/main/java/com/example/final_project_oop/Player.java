@@ -8,9 +8,10 @@ public class Player {
     private Boolean isOut = false;
     private String howOut;
     private int numOfOvers;
+    private int ballsDelivered;
     private int outs;
     private int runsGiven;
-    private int ballsDelivered;
+
 
     public int getBallsDelivered() {
         return ballsDelivered;
@@ -19,6 +20,8 @@ public class Player {
     public void setBallsDelivered(int ballsDelivered) {
         this.ballsDelivered = ballsDelivered;
     }
+
+
 
     public int getBallsPlayed() {
         return ballsPlayed;
