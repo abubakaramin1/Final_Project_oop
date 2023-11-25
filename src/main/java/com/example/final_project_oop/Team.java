@@ -11,6 +11,7 @@ public class Team {
 
    private String teamName;
    private String action;
+    int totalScore;
 
     public String getAction() {
         return action;
