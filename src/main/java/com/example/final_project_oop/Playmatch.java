@@ -28,6 +28,8 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 
+import static java.lang.Integer.parseInt;
+
 public class Playmatch extends Application {
 
     Stage window;
@@ -35,6 +37,9 @@ public class Playmatch extends Application {
     Team battingTeam = new Team();
     Team ballingTeam = new Team();
     List<Player> battingSide;
+    int maxOvers;
+    int totalOvers;
+
 
     public static void main(String[] args) throws Exception {
 
@@ -46,6 +51,7 @@ public class Playmatch extends Application {
     private Player batsman1 = new Player();
     private Player batsman2 = new Player();
     private Player bowler = new Player();
+    int innings = 1;
 
     VBox vBox3 = new VBox();
     VBox vBox5 = new VBox();
@@ -195,7 +201,7 @@ public class Playmatch extends Application {
         label.setTextFill(clr);
         label.setFont(labelFont);
         VBox vBox = new VBox(label , battingRadioButton,bowlingRadioButton , button);
-        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        Image backgroundImage = new Image("C:\\Users\\Administrator\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
         //Calculate the width and height based on the screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double screenWidth = primaryScreenBounds.getWidth();
@@ -214,6 +220,8 @@ public class Playmatch extends Application {
         Color clr = Color.WHITE;
 
         Button button = new Button("START MATCH");
+        TextField textField = new TextField();
+        textField.setPromptText("Enter Maximum overs");
         button.setPrefSize(150,60);
         button.setPadding(new Insets(10));
         Font buttonFont = Font.font("Arial",FontWeight.BOLD,15);
@@ -227,7 +235,7 @@ public class Playmatch extends Application {
         button.setBackground(background2);
 
         VBox vBox = new VBox();
-        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        Image backgroundImage = new Image("C:\\Users\\Administrator\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
         //Calculate the width and height based on the screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double screenWidth = primaryScreenBounds.getWidth();
@@ -236,14 +244,25 @@ public class Playmatch extends Application {
         BackgroundImage backgroundImage1 = new BackgroundImage(backgroundImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true));
         Background background = new Background(backgroundImage1);
         vBox.setBackground(background);
+
         vBox.setAlignment(Pos.CENTER);
 
         label2.setTextFill(clr);
         label2.setFont(labelFont);
         label2.setPadding(new Insets(10));
 
-        vBox.getChildren().addAll(label2,button);
-        button.setOnAction(e -> showBattingTeam());
+        vBox.getChildren().addAll(label2, textField, button);
+        button.setOnAction(e ->
+        {
+            maxOvers = parseInt(textField.getText());
+            showBattingTeam();
+        });
+        textField.setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ENTER) {
+                button.requestFocus();
+            }
+        });
         Scene scene4 = new Scene(vBox);
         window.setScene(scene4);
     }
@@ -378,7 +397,9 @@ public class Playmatch extends Application {
 
 
         VBox vBox = new VBox();
-        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        Image backgroundImage = new Image("C:\\Users\\Administrator\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+
+
         //Calculate the width and height based on the screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double screenWidth = primaryScreenBounds.getWidth();
@@ -503,7 +524,7 @@ public class Playmatch extends Application {
         });
 
         VBox vBox2 = new VBox();
-        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        Image backgroundImage = new Image("C:\\Users\\Administrator\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
         //Calculate the width and height based on the screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double screenWidth = primaryScreenBounds.getWidth();
@@ -542,7 +563,7 @@ public class Playmatch extends Application {
         bb.setOnMouseExited(e -> bb.setCursor(Cursor.DEFAULT));
 
 
-        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        Image backgroundImage = new Image("C:\\Users\\Administrator\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
          //Calculate the width and height based on the screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double screenWidth = primaryScreenBounds.getWidth();
@@ -683,6 +704,7 @@ public class Playmatch extends Application {
         //borderPane.setBottom(hBox);
         borderPane.setCenter(vBoxCenter);
         Button button = new Button("Scorecard");
+        Button button1 = new Button("Total Scorecard");
         button.setPrefSize(120, 60);
         Font buttonFont = Font.font("Arial", FontWeight.BOLD, 15);
         Color buttonClr = Color.WHITE;
@@ -691,15 +713,23 @@ public class Playmatch extends Application {
         button.setOnMouseEntered(e -> button.setCursor(Cursor.HAND));
         button.setOnMouseExited(e -> button.setCursor(Cursor.DEFAULT));
         button.setBackground(background2);
+        button1.setPrefSize(120, 60);
+        Font button1Font = Font.font("Arial", FontWeight.BOLD, 15);
+        Color button1Clr = Color.WHITE;
+        button.setTextFill(button1Clr);
+        button.setFont(button1Font);
+        button1.setOnMouseEntered(e -> button1.setCursor(Cursor.HAND));
+        button1.setOnMouseExited(e -> button1.setCursor(Cursor.DEFAULT));
+        button1.setBackground(background2);
 
-        HBox buttonBox = new HBox(button);
+        HBox buttonBox = new HBox(10);
+        buttonBox.getChildren().addAll(button,button1);
         buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
         buttonBox.setPadding(new Insets(30, 30, 30, 30)); // Adjust padding as needed
 
         borderPane.setBottom(buttonBox); // Add buttonBox to the bottom of the borderPane
         button.setOnAction(e -> showScorecard());
-
-
+        button1.setOnAction(e -> totalScorecard());
         scene2 = new Scene(borderPane);
         window.setWidth(screenWidth);
         window.setHeight(screenHeight);
@@ -710,7 +740,8 @@ public class Playmatch extends Application {
     }
 
     private void handle1(CheckBox p1, CheckBox p2, CheckBox p3, CheckBox p4, CheckBox p5, CheckBox p6, CheckBox p7, CheckBox p8, CheckBox p9, CheckBox p10, CheckBox p11) {
-        if (p1.isSelected()) {
+        if (p1.isSelected())
+        {
             if (batsman1.getName() == null) {
                 batsman1 = battingTeam.team.get(0);
             } else if (batsman2.getName() == null)
@@ -850,9 +881,9 @@ public class Playmatch extends Application {
 
     }
 
-    private void addOne()
-    {
+    private void addOne() {
         batsman1.setRunsScored(batsman1.getRunsScored() + 1);
+        battingTeam.totalScore = battingTeam.totalScore + 1;
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
         Player temp = new Player();
         temp = batsman1;
@@ -863,24 +894,27 @@ public class Playmatch extends Application {
             bowler.setRunsGiven(bowler.getRunsGiven() + 1);
         }
         checkBalls();
+        nextInnings();
         updateBatsmanScores();
     }
 
-    private void addTwo()
-    {
+    private void addTwo() {
         batsman1.setRunsScored(batsman1.getRunsScored() + 2);
+        battingTeam.totalScore = battingTeam.totalScore + 2;
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
         if (bowler.getBallsDelivered() < 6) {
             bowler.setBallsDelivered(bowler.getBallsDelivered() + 1);
             bowler.setRunsGiven(bowler.getRunsGiven() + 2);
         }
         checkBalls();
+        nextInnings();
         updateBatsmanScores();
     }
 
-    private void addThree()
-    {
+    private void addThree() {
         batsman1.setRunsScored(batsman1.getRunsScored() + 3);
+        battingTeam.totalScore = battingTeam.totalScore + 3;
+
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
         Player temp = new Player();
         temp = batsman1;
@@ -891,24 +925,28 @@ public class Playmatch extends Application {
             bowler.setRunsGiven(bowler.getRunsGiven() + 3);
         }
         checkBalls();
+        nextInnings();
         updateBatsmanScores();
     }
 
-    private void addFour()
-    {
+    private void addFour() {
         batsman1.setRunsScored(batsman1.getRunsScored() + 4);
+        battingTeam.totalScore = battingTeam.totalScore + 4;
+
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
         if (bowler.getBallsDelivered() < 6) {
             bowler.setBallsDelivered(bowler.getBallsDelivered() + 1);
             bowler.setRunsGiven(bowler.getRunsGiven() + 4);
         }
         checkBalls();
+        nextInnings();
         updateBatsmanScores();
     }
 
-    private void addFive()
-    {
+    private void addFive() {
         batsman1.setRunsScored(batsman1.getRunsScored() + 5);
+        battingTeam.totalScore = battingTeam.totalScore + 5;
+
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
         Player temp = new Player();
         temp = batsman1;
@@ -919,38 +957,39 @@ public class Playmatch extends Application {
             bowler.setRunsGiven(bowler.getRunsGiven() + 5);
         }
         checkBalls();
-
+        nextInnings();
         updateBatsmanScores();
     }
 
-    private void addSix()
-    {
+    private void addSix() {
         batsman1.setRunsScored(batsman1.getRunsScored() + 6);
+        battingTeam.totalScore = battingTeam.totalScore + 6;
+
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
         if (bowler.getBallsDelivered() < 6) {
             bowler.setBallsDelivered(bowler.getBallsDelivered() + 1);
             bowler.setRunsGiven(bowler.getRunsGiven() + 6);
         }
         checkBalls();
-
+        nextInnings();
         updateBatsmanScores();
     }
 
-    private void addZero()
-    {
+    private void addZero() {
         batsman1.setBallsPlayed(batsman1.getBallsPlayed() + 1);
-        if (bowler.getBallsDelivered() < 6)
-        {
+        if (bowler.getBallsDelivered() < 6) {
             bowler.setBallsDelivered(bowler.getBallsDelivered() + 1);
         }
         checkBalls();
-
+        nextInnings();
         updateBatsmanScores();
     }
 
-    private void wideBall(){
-        batsman1.setRunsScored(batsman1.getRunsScored() + 1);
+    private void wideBall() {
+        battingTeam.totalScore = battingTeam.totalScore + 1;
+
         updateBatsmanScores();
+
     }
 
     private void checkBalls()
@@ -970,6 +1009,7 @@ public class Playmatch extends Application {
         if (bowler.getBallsDelivered() == 6) {
 
             bowler.setNumOfOvers(bowler.getNumOfOvers() + 1 );
+            totalOvers = totalOvers + 1;
             Player temp = new Player();
             temp = batsman1;
             batsman1 = batsman2;
@@ -1066,7 +1106,7 @@ public class Playmatch extends Application {
 
             VBox vBox = new VBox();
 
-            Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+            Image backgroundImage = new Image("C:\\Users\\Administrator\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
             //Calculate the width and height based on the screen size
             Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
             double screenWidth = primaryScreenBounds.getWidth();
@@ -1085,7 +1125,8 @@ public class Playmatch extends Application {
     }
 
 
-    private void updateBatsmanScores() {
+    private void updateBatsmanScores()
+    {
         Font teamFont = Font.font("Arial",FontWeight.BOLD,30);
         Color teamClr = Color.WHITE;
 
@@ -1225,7 +1266,7 @@ public class Playmatch extends Application {
         }
 
         VBox vBox = new VBox();
-        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        Image backgroundImage = new Image("C:\\Users\\Administrator\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
         //Calculate the width and height based on the screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double screenWidth = primaryScreenBounds.getWidth();
@@ -1363,7 +1404,7 @@ public class Playmatch extends Application {
         PlayersLabel.setFont(teamFont);
         PlayersLabel.setTextFill(teamClr);
 
-        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        Image backgroundImage = new Image("C:\\Users\\Administrator\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
         //Calculate the width and height based on the screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double screenWidth = primaryScreenBounds.getWidth();
@@ -1470,7 +1511,7 @@ public class Playmatch extends Application {
         PlayersLabel.setTextFill(teamClr);
 
 
-        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        Image backgroundImage = new Image("C:\\Users\\Administrator\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
         //Calculate the width and height based on the screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double screenWidth = primaryScreenBounds.getWidth();
@@ -1504,13 +1545,34 @@ public class Playmatch extends Application {
 
         public void showScorecard()
     {
-        BorderPane scorecardPane = new BorderPane();
 
-        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+        Label label = new Label();
+        if (innings ==1)
+        {
+            label.setText("Innings 1");
+        }
+        else if (innings == 2)
+        {
+            label.setText("Innings 2");
+        }
+        Image backgroundImage = new Image("C:\\Users\\Administrator\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
         //Calculate the width and height based on the screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double screenWidth = primaryScreenBounds.getWidth();
         double screenHeight = primaryScreenBounds.getHeight();
+        VBox team1Score = new VBox();
+        VBox team2Score = new VBox();
+        BorderPane scorecardPane = new BorderPane();
+        if (Objects.equals(team1, battingTeam))
+        {
+            team1Score = createScorecardVBox(team1.getTeamName(), team1);
+            team2Score = createScorecardVBoxBalling(team2.getTeamName(), team2);
+        }
+        else if (Objects.equals(team2 , battingTeam))
+        {
+            team1Score = createScorecardVBox(team2.getTeamName(), team2);
+            team2Score = createScorecardVBoxBalling(team1.getTeamName(), team1);
+        }
 
         BackgroundImage backgroundImage1 = new BackgroundImage(backgroundImage,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true));
         Background background = new Background(backgroundImage1);
@@ -1518,13 +1580,12 @@ public class Playmatch extends Application {
 //        Label l1 = new Label(team1.getTeamName());
 //        Label l2 = new Label(team2.getTeamName());
 
-        VBox team1Score = createScorecardVBox(team1.getTeamName(), team1);
-        VBox team2Score = createScorecardVBox(team2.getTeamName(), team2);
+
 
         HBox scorecardBox = new HBox(team1Score, team2Score);
         scorecardBox.setSpacing(30);
         scorecardBox.setAlignment(Pos.CENTER);
-
+        VBox vBox = new VBox(label,scorecardBox);
         Button button = new Button("Ball By Ball");
         button.setPrefSize(120, 60);
         Font buttonFont = Font.font("Arial", FontWeight.BOLD, 15);
@@ -1545,7 +1606,7 @@ public class Playmatch extends Application {
 
         button.setOnAction( e -> window.setScene(scene2));
 
-        scorecardPane.setCenter(scorecardBox);
+        scorecardPane.setCenter(vBox);
         scorecardPane.setBottom(buttonBox);
         Scene scorecardScene = new Scene(scorecardPane, 600, 400);
         window.setScene(scorecardScene);
@@ -1605,6 +1666,152 @@ public class Playmatch extends Application {
         vBox.setAlignment(Pos.CENTER);
         return vBox;
     }
+
+    private VBox createScorecardVBoxBalling(String teamName, Team team)
+    {
+        VBox vBox = new VBox();
+        vBox.setSpacing(10);
+
+
+        Font teamFont = Font.font("Arial",FontWeight.BOLD,30);
+        Color teamClr = Color.WHITE;
+
+        Label teamLabel = new Label(teamName);
+        teamLabel.setFont(teamFont);
+        teamLabel.setTextFill(teamClr);
+
+        // teamLabel.setFont(new Font("Arial", 18));
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(5);
+
+        Label l1 = new Label("Player");
+        Label l2 = new Label("Runs Given");
+        Label l3 = new Label("Overs");
+
+        l1.setFont(teamFont);
+        l1.setTextFill(teamClr);
+        l2.setFont(teamFont);
+        l2.setTextFill(teamClr);
+        l3.setFont(teamFont);
+        l3.setTextFill(teamClr);
+
+        // Add column headers
+        gridPane.add(l1, 0, 0);
+        gridPane.add(l2, 1, 0);
+        gridPane.add(l3, 2, 0);
+
+        // Add player details
+        for (int i = 0; i < team.team.size(); i++) {
+            Player player = team.team.get(i);
+            Label l4 = new Label(player.getName());
+            Label l5 = new Label(String.valueOf(player.getRunsGiven()));
+            Label l6 = new Label(String.valueOf(player.getNumOfOvers()));
+            l4.setTextFill(teamClr);
+            l4.setFont(teamFont);
+            l5.setTextFill(teamClr);
+            l5.setFont(teamFont);
+            l6.setTextFill(teamClr);
+            l6.setFont(teamFont);
+            gridPane.add(l4, 0, i + 1);
+            gridPane.add(l5, 1, i + 1);
+            gridPane.add(l6, 2, i + 1);
+        }
+
+        vBox.getChildren().addAll(teamLabel, gridPane);
+        vBox.setAlignment(Pos.CENTER);
+        return vBox;
+    }
+    public void totalScorecard()
+    {
+        if (innings == 1)
+        {
+            Label label = new Label("Innings 1");
+            label.setAlignment(Pos.TOP_CENTER);
+            VBox vboxBatting = createScorecardVBox(battingTeam.getTeamName(), battingTeam);
+            VBox vboxBalling = createScorecardVBoxBalling(ballingTeam.getTeamName(), ballingTeam);
+            HBox hBox = new HBox(vboxBatting,vboxBalling);
+            VBox vBox = new VBox(label,hBox);
+            Label label1 = new Label("Innings 2");
+            label1.setAlignment(Pos.TOP_CENTER);
+            VBox vBox2Batting = createScorecardVBox(ballingTeam.getTeamName(),ballingTeam);
+            VBox vbox2Balling = createScorecardVBoxBalling(battingTeam.getTeamName(),battingTeam);
+            HBox hBox1 = new HBox(vBox2Batting,vbox2Balling);
+            VBox vBox1 = new VBox(label1 , hBox1);
+            Button button = new Button("Ball By Ball");
+            button.setOnAction( e -> window.setScene(scene2));
+            VBox vBoxMain = new VBox(vBox , vBox1 ,button);
+            Scene scene4 = new Scene(vBoxMain);
+            window.setScene(scene4);
+        }
+        else if (innings == 2)
+        {
+            Label label = new Label("Innings 1");
+            label.setAlignment(Pos.TOP_CENTER);
+            VBox vboxBatting = createScorecardVBox(ballingTeam.getTeamName(), ballingTeam);
+            VBox vboxBalling = createScorecardVBoxBalling(battingTeam.getTeamName(), battingTeam);
+            HBox hBox = new HBox(vboxBatting,vboxBalling);
+            VBox vBox = new VBox(label,hBox);
+            Label label1 = new Label("Innings 2");
+            label1.setAlignment(Pos.TOP_CENTER);
+            VBox vBox2Batting = createScorecardVBox(battingTeam.getTeamName(),battingTeam);
+            VBox vbox2Balling = createScorecardVBoxBalling(ballingTeam.getTeamName(),ballingTeam);
+            HBox hBox1 = new HBox(vBox2Batting,vbox2Balling);
+            VBox vBox1 = new VBox(label1 , hBox1);
+            Button button = new Button("Ball By Ball");
+            button.setOnAction( e -> window.setScene(scene2));
+            if (innings == 2 && totalOvers == maxOvers)
+            {
+                button.setVisible(false);
+            }
+            VBox vBoxMain = new VBox(vBox , vBox1 , button);
+            Scene scene4 = new Scene(vBoxMain);
+            window.setScene(scene4);
+        }
+    }
+
+    private void nextInnings() {
+        if (totalOvers == maxOvers)
+        {
+            if (innings == 2)
+            {
+                Label label = new Label("Match has been completed ");
+                Button button = new Button("Innings Scorecard");
+                Button button1 = new Button("Total Scorecard");
+                button.setOnAction(e ->
+                {
+                    showScorecard();
+                });
+                button1.setOnAction(e -> totalScorecard());
+                VBox vBox = new VBox(label, button , button1);
+                Scene scene4 = new Scene(vBox);
+                window.setScene(scene4);
+            } else if (innings < 2) {
+                innings = innings + 1;
+                Label label = new Label("First Innings has been completed.");
+                Button button = new Button("Next Innings");
+                VBox vBox = new VBox(label, button);
+                Scene scene4 = new Scene(vBox);
+                window.setScene(scene4);
+                button.setOnAction(e ->
+                {
+                    Team temp = new Team();
+                    temp = battingTeam;
+                    battingTeam = ballingTeam;
+                    ballingTeam = temp;
+                    battingSide = new ArrayList<>(battingTeam.team);
+                    totalOvers = 0;
+                    batsman1 = new Player();
+                    batsman2 = new Player();
+
+                    showBattingTeam();
+                });
+            }
+
+        }
+    }
+
+
 
 
 
