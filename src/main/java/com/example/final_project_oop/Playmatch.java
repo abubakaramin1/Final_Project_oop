@@ -1806,7 +1806,8 @@ public class Playmatch extends Application {
         } else if (innings == 2) {
             Label label = new Label("Innings 1");
             label.setAlignment(Pos.TOP_CENTER);
-
+            label.setTextFill(teamClr);
+            label.setFont(teamFont);
             VBox vboxBatting = createScorecardVBox(ballingTeam.getTeamName(), ballingTeam);
             VBox vboxBalling = createScorecardVBoxBalling(battingTeam.getTeamName(), battingTeam);
             HBox hBox = new HBox(vboxBatting, vboxBalling);
@@ -1814,7 +1815,8 @@ public class Playmatch extends Application {
 
             Label label1 = new Label("Innings 2");
             label1.setAlignment(Pos.TOP_CENTER);
-
+            label1.setFont(teamFont);
+            label1.setTextFill(teamClr);
             VBox vBox2Batting = createScorecardVBox(battingTeam.getTeamName(), battingTeam);
             VBox vbox2Balling = createScorecardVBoxBalling(ballingTeam.getTeamName(), ballingTeam);
             HBox hBox1 = new HBox(vBox2Batting, vbox2Balling);
@@ -1848,7 +1850,6 @@ public class Playmatch extends Application {
             vBoxMain.setAlignment(Pos.CENTER);
             VBox vBox2 = new VBox(vBoxMain,button);
             button.setAlignment(Pos.BOTTOM_RIGHT);
-         //   button.setTranslateY(-20);
             vBox2.setAlignment(Pos.CENTER);
             vBox2.setBackground(background);
             vBox2.setSpacing(100);
@@ -1860,26 +1861,115 @@ public class Playmatch extends Application {
 
 
     private void nextInnings() {
+        Font teamFont = Font.font("Arial",FontWeight.BOLD,20);
+        Color teamClr = Color.WHITE;
+
+        Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
+
+        // Calculate the width and height based on the screen size
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenWidth = primaryScreenBounds.getWidth();
+        double screenHeight = primaryScreenBounds.getHeight();
+
+        BackgroundImage backgroundImage1 = new BackgroundImage(
+                backgroundImage,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)
+        );
+        Background background = new Background(backgroundImage1);
+
+
+
+
         if (totalOvers == maxOvers)
         {
             if (innings == 2)
             {
+                Label win = null;
                 Label label = new Label("Match has been completed ");
+                Label l = new Label(team1.getTeamName()+" has scored: "+String.valueOf(team1.totalScore)+ " runs.");
+                l.setTextFill(teamClr);
+                l.setFont(teamFont);
+                Label ll = new Label(team2.getTeamName()+" has scored: "+String.valueOf(team2.totalScore)+ " runs.");
+                ll.setFont(teamFont);
+                ll.setTextFill(teamClr);
+                label.setFont(teamFont);
+                label.setTextFill(teamClr);
+                
+                if (team1.totalScore > team2.totalScore){
+                    win = new Label();
+                    win.setText(team1.getTeamName()+ " has won the match!");
+                    win.setFont(teamFont);
+                    win.setTextFill(teamClr);
+                }
+                if (team2.totalScore > team1.totalScore){
+                    win = new Label();
+                    win.setText(team2.getTeamName()+ " has won the match!");
+                    win.setFont(teamFont);
+                    win.setTextFill(teamClr);
+                }
+                
                 Button button = new Button("Innings Scorecard");
+                button.setPrefSize(150,60);
+                button.setPadding(new Insets(10));
+                Font buttonFont = Font.font("Arial",FontWeight.BOLD,13);
+                button.setUnderline(true);
+                Color buttonClr = Color.WHITE;
+                button.setTextFill(buttonClr);
+                button.setFont(buttonFont);
+                button.setOnMouseEntered(e -> button.setCursor(Cursor.HAND));
+                button.setOnMouseExited(e -> button.setCursor(Cursor.DEFAULT));
+                BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
+                Background background2 = new Background(backgroundFill);
+                button.setBackground(background2);
                 Button button1 = new Button("Total Scorecard");
+                button1.setPrefSize(150,60);
+                button1.setPadding(new Insets(10));
+
+                button1.setUnderline(true);
+
+                button1.setTextFill(buttonClr);
+                button1.setFont(buttonFont);
+                button1.setOnMouseEntered(e -> button1.setCursor(Cursor.HAND));
+                button1.setOnMouseExited(e -> button1.setCursor(Cursor.DEFAULT));
+
+
+                button1.setBackground(background2);
                 button.setOnAction(e ->
                 {
                     showScorecard();
                 });
                 button1.setOnAction(e -> totalScorecard());
-                VBox vBox = new VBox(label, button , button1);
+                VBox vBox = new VBox(label,l,ll,win, button , button1);
+                vBox.setBackground(background);
+                vBox.setAlignment(Pos.CENTER);
+                vBox.setSpacing(40);
                 Scene scene4 = new Scene(vBox);
                 window.setScene(scene4);
             } else if (innings < 2) {
                 innings = innings + 1;
                 Label label = new Label("First Innings has been completed.");
+                label.setTextFill(teamClr);
+                label.setFont(teamFont);
                 Button button = new Button("Next Innings");
+                button.setPrefSize(150,60);
+                button.setPadding(new Insets(10));
+                Font buttonFont = Font.font("Arial",FontWeight.BOLD,20);
+                button.setUnderline(true);
+                Color buttonClr = Color.WHITE;
+                button.setTextFill(buttonClr);
+                button.setFont(buttonFont);
+                button.setOnMouseEntered(e -> button.setCursor(Cursor.HAND));
+                button.setOnMouseExited(e -> button.setCursor(Cursor.DEFAULT));
+                BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
+                Background background2 = new Background(backgroundFill);
+                button.setBackground(background2);
                 VBox vBox = new VBox(label, button);
+                vBox.setBackground(background);
+                vBox.setAlignment(Pos.CENTER);
+                vBox.setSpacing(40);
                 Scene scene4 = new Scene(vBox);
                 window.setScene(scene4);
                 button.setOnAction(e ->
