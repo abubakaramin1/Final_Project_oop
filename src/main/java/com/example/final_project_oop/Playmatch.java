@@ -62,6 +62,8 @@ public class Playmatch extends Application {
     Label l5 = new Label();
     Label l6 = new Label();
     Label l7 = new Label();
+    Label scorecard = new Label();
+    Label l23 = new Label();
     Label bowlerScore = new Label();
     BorderPane borderPane = new BorderPane();
 
@@ -703,6 +705,16 @@ public class Playmatch extends Application {
         hboxVbox.setAlignment(Pos.CENTER);
         hboxVbox.getChildren().add(vBox1);
 
+        Label l22 = new Label("Score/Overs");
+        l22.setTextFill(teamClr);
+        l22.setFont(teamFont);
+
+        l23.setFont(teamFont);
+        l23.setTextFill(teamClr);
+
+        VBox vbox = new VBox(l22,l23);
+        vbox.setSpacing(20);
+        vbox.setAlignment(Pos.TOP_CENTER);
         VBox vBoxCenter = new VBox();
         vBoxCenter.getChildren().addAll( hboxVbox,hBox);
         vBoxCenter.setAlignment(Pos.CENTER);
@@ -711,6 +723,7 @@ public class Playmatch extends Application {
         borderPane.setBackground(background);
         //borderPane.setBottom(hBox);
         borderPane.setCenter(vBoxCenter);
+        borderPane.setTop(vbox);
         Button button = new Button("Scorecard");
         Button button1 = new Button("Total Scorecard");
         button1.setTextFill(Color.WHITE);
@@ -1231,6 +1244,8 @@ public class Playmatch extends Application {
         l17.setTextFill(teamClr);
         gridPane.add(l17 , 3 , 5);
 
+        l23.setText(""+battingTeam.totalScore +"/"+String.valueOf(totalOvers));
+        scorecard.setText(""+battingTeam.totalScore +"/"+String.valueOf(totalOvers));
         vBox1.setAlignment(Pos.CENTER);
         vBox1.getChildren().clear();
         vBox1.getChildren().add(gridPane);
@@ -1557,14 +1572,32 @@ public class Playmatch extends Application {
     public void showScorecard()
     {
 
+        Label label1 = new Label("Score/Overs");
+        VBox vBoxxx = new VBox(label1,scorecard);
+vBoxxx.setSpacing(8);
+
+        vBoxxx.setAlignment(Pos.TOP_CENTER);
+        Color teamClr = Color.WHITE;
+        Font teamFont = Font.font("Arial",FontWeight.BOLD,20);
+       label1.setFont(teamFont);
+        label1.setTextFill(teamClr);
+        scorecard.setFont(teamFont);
+        scorecard.setTextFill(teamClr);
         Label label = new Label();
+
         if (innings ==1)
         {
             label.setText("Innings 1");
+            label.setFont(teamFont);
+            label.setAlignment(Pos.CENTER);
+            label.setPadding(new Insets(0,0,10,0));
         }
         else if (innings == 2)
         {
             label.setText("Innings 2");
+            label.setFont(teamFont);
+            label.setAlignment(Pos.CENTER);
+            label.setPadding(new Insets(0,0,10,0));
         }
         Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
         //Calculate the width and height based on the screen size
@@ -1593,10 +1626,15 @@ public class Playmatch extends Application {
 
 
 
-        HBox scorecardBox = new HBox(team1Score, team2Score);
-        scorecardBox.setSpacing(30);
+        HBox scorecardBox = new HBox(team1Score , team2Score);
+        scorecardBox.setSpacing(70);
         scorecardBox.setAlignment(Pos.CENTER);
         VBox vBox = new VBox(label,scorecardBox);
+        vBox.setStyle("-fx-background-color: #f3f3f3;-fx-background-radius: 10");
+        vBox.setPadding(new Insets(20,20,0,20));
+        vBox.setMaxWidth(600);
+        vBox.setTranslateY(30);
+
         Button button = new Button("Ball By Ball");
         button.setPrefSize(120, 60);
         Font buttonFont = Font.font("Arial", FontWeight.BOLD, 15);
@@ -1613,31 +1651,37 @@ public class Playmatch extends Application {
         buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
         buttonBox.setPadding(new Insets(30, 30, 30, 30)); // Adjust padding as needed
 
-        borderPane.setBottom(buttonBox); // Add buttonBox to the bottom of the borderPane
+
+
 
         button.setOnAction( e -> window.setScene(scene2));
 
         scorecardPane.setCenter(vBox);
         scorecardPane.setBottom(buttonBox);
+        scorecardPane.setTop(vBoxxx);
         Scene scorecardScene = new Scene(scorecardPane, 600, 400);
         window.setScene(scorecardScene);
     }
     private VBox createScorecardVBox(String teamName, Team team) {
         VBox vBox = new VBox();
         vBox.setSpacing(10);
-
+        BackgroundFill backgroundFill2 = new BackgroundFill(Color.BLACK, null, null);
+        Background background22 = new Background(backgroundFill2);
 
         Font teamFont = Font.font("Arial",FontWeight.BOLD,20);
         Color teamClr = Color.WHITE;
 
-        Label teamLabel = new Label(teamName);
-        teamLabel.setFont(teamFont);
-        teamLabel.setTextFill(teamClr);
+        Font teamFont1 = Font.font("Arial",FontWeight.BOLD,25);
+        Color teamClr1 = Color.DARKGREY;
 
+        Label teamLabel = new Label(teamName);
+        teamLabel.setFont(teamFont1);
+//        teamLabel.setTextFill(teamClr1);
+//teamLabel.setBackground(background22);
         // teamLabel.setFont(new Font("Arial", 18));
         GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(5);
+        gridPane.setHgap(30);
+        gridPane.setVgap(15);
 
         Label l1 = new Label("Player");
         Label l2 = new Label("Runs");
@@ -1645,11 +1689,11 @@ public class Playmatch extends Application {
 
 
         l1.setFont(teamFont);
-        l1.setTextFill(teamClr);
+//        l1.setTextFill(teamClr);
         l2.setFont(teamFont);
-        l2.setTextFill(teamClr);
+//        l2.setTextFill(teamClr);
         l3.setFont(teamFont);
-        l3.setTextFill(teamClr);
+//        l3.setTextFill(teamClr);
 
         // Add column headers
         gridPane.add(l1, 0, 0);
@@ -1657,16 +1701,17 @@ public class Playmatch extends Application {
         gridPane.add(l3, 2, 0);
 
         // Add player details
-        for (int i = 0; i < team.team.size(); i++) {
+        for (int i = 0; i < team.team.size(); i++)
+        {
             Player player = team.team.get(i);
             Label l4 = new Label(player.getName());
             Label l5 = new Label(String.valueOf(player.getRunsScored()));
             Label l6 = new Label(String.valueOf(player.getBallsPlayed()));
-            l4.setTextFill(teamClr);
+//            l4.setTextFill(teamClr);
             l4.setFont(teamFont);
-            l5.setTextFill(teamClr);
+//            l5.setTextFill(teamClr);
             l5.setFont(teamFont);
-            l6.setTextFill(teamClr);
+//            l6.setTextFill(teamClr);
             l6.setFont(teamFont);
             gridPane.add(l4, 0, i + 1);
             gridPane.add(l5, 1, i + 1);
@@ -1675,6 +1720,7 @@ public class Playmatch extends Application {
 
         vBox.getChildren().addAll(teamLabel, gridPane);
         vBox.setAlignment(Pos.CENTER);
+//        vBox.setSpacing(30);
         return vBox;
     }
 
@@ -1686,26 +1732,30 @@ public class Playmatch extends Application {
 
         Font teamFont = Font.font("Arial",FontWeight.BOLD,20);
         Color teamClr = Color.WHITE;
+        Font teamFont1 = Font.font("Arial",FontWeight.BOLD,25);
+        Color teamClr1 = Color.DARKGREY;
+//        BackgroundFill backgroundFill2 = new BackgroundFill(Color.BLACK, null, null);
+//        Background background22 = new Background(backgroundFill2);
 
         Label teamLabel = new Label(teamName);
-        teamLabel.setFont(teamFont);
-        teamLabel.setTextFill(teamClr);
-
+        teamLabel.setFont(teamFont1);
+//        teamLabel.setTextFill(teamClr1);
+//teamLabel.setBackground(background22);
         // teamLabel.setFont(new Font("Arial", 18));
         GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(5);
+        gridPane.setHgap(30);
+        gridPane.setVgap(15);
 
         Label l1 = new Label("Player");
-        Label l2 = new Label("Runs Given");
+        Label l2 = new Label("R / W");
         Label l3 = new Label("Overs");
 
         l1.setFont(teamFont);
-        l1.setTextFill(teamClr);
+//        l1.setTextFill(teamClr);
         l2.setFont(teamFont);
-        l2.setTextFill(teamClr);
+//        l2.setTextFill(teamClr);
         l3.setFont(teamFont);
-        l3.setTextFill(teamClr);
+//        l3.setTextFill(teamClr);
 
         // Add column headers
         gridPane.add(l1, 0, 0);
@@ -1716,13 +1766,13 @@ public class Playmatch extends Application {
         for (int i = 0; i < team.team.size(); i++) {
             Player player = team.team.get(i);
             Label l4 = new Label(player.getName());
-            Label l5 = new Label(String.valueOf(player.getRunsGiven()));
+            Label l5 = new Label(String.valueOf(player.getRunsGiven()) + " / " + String.valueOf(player.getOuts()));
             Label l6 = new Label(String.valueOf(player.getNumOfOvers()));
-            l4.setTextFill(teamClr);
+//            l4.setTextFill(teamClr);
             l4.setFont(teamFont);
-            l5.setTextFill(teamClr);
+//            l5.setTextFill(teamClr);
             l5.setFont(teamFont);
-            l6.setTextFill(teamClr);
+//            l6.setTextFill(teamClr);
             l6.setFont(teamFont);
             gridPane.add(l4, 0, i + 1);
             gridPane.add(l5, 1, i + 1);
@@ -1733,10 +1783,13 @@ public class Playmatch extends Application {
         vBox.setAlignment(Pos.CENTER);
         return vBox;
     }
-    public void totalScorecard() {
+    public void totalScorecard()
+    {
 
         Font teamFont = Font.font("Arial",FontWeight.BOLD,20);
-        Color teamClr = Color.WHITE;
+       // Color teamClr = Color.WHITE;
+        Font teamFont1 = Font.font("Arial",FontWeight.BOLD,30);
+        Color teamClr1 = Color.BLACK;
 
         Image backgroundImage = new Image("C:\\Users\\TECHNO-WORLD\\IdeaProjects\\Final_Project_oop\\src\\main\\java\\com\\example\\final_project_oop\\3.jpg");
 
@@ -1753,27 +1806,48 @@ public class Playmatch extends Application {
                 new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)
         );
         Background background = new Background(backgroundImage1);
+        BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
+        Background background2 = new Background(backgroundFill);
+        BackgroundFill backgroundFill2 = new BackgroundFill(Color.BLACK, null, null);
+        Background background22 = new Background(backgroundFill2);
 
-        if (innings == 1) {
+        if (innings == 1)
+        {
             Label label = new Label("Innings 1");
-
-            label.setTextFill(teamClr);
-            label.setFont(teamFont);
+//            label.setBackground(background22);
+          //  label.setTextFill(teamClr);
+            label.setFont(teamFont1);
 
             VBox vboxBatting = createScorecardVBox(battingTeam.getTeamName(), battingTeam);
             VBox vboxBalling = createScorecardVBoxBalling(ballingTeam.getTeamName(), ballingTeam);
             HBox hBox = new HBox(vboxBatting, vboxBalling);
-            VBox vBox = new VBox(label, hBox);
+            hBox.setSpacing(20);
 
-            Label label1 = new Label("Innings 2");
+            VBox vBox = new VBox(label,new Region(), hBox);
+vBox.setSpacing(20);
+vBox.setStyle("-fx-background-color: #f3f3f3;-fx-background-radius: 10");
+//vBox.setMinWidth(580);
+vBox.setMaxWidth(650);
+vBox.setPadding(new Insets(20,20,0,20));
+vBox.setMinHeight(600);
 
-            label1.setFont(teamFont);
-            label1.setTextFill(teamClr);
+Label label1 = new Label("Innings 2");
+//            label1.setBackground(background22);
+            label1.setFont(teamFont1);
+         //   label1.setTextFill(teamClr);
 
             VBox vBox2Batting = createScorecardVBox(ballingTeam.getTeamName(), ballingTeam);
             VBox vbox2Balling = createScorecardVBoxBalling(battingTeam.getTeamName(), battingTeam);
             HBox hBox1 = new HBox(vBox2Batting, vbox2Balling);
+            hBox1.setPadding(new Insets(20,0,0,0));
+            hBox1.setSpacing(20);
             VBox vBox1 = new VBox(label1, hBox1);
+            vBox1.setSpacing(20);
+            vBox1.setStyle("-fx-background-color: #f3f3f3;-fx-background-radius: 10");
+//            vBox1.setMinWidth(580);
+            vBox1.setMaxWidth(650);
+            vBox1.setPadding(new Insets(20,20,0,20));
+            vBox1.setMinHeight(600);
 
             Button button = new Button("Ball By Ball");
             button.setPrefSize(120, 60);
@@ -1783,8 +1857,7 @@ public class Playmatch extends Application {
             button.setFont(buttonFont);
             button.setOnMouseEntered(e -> button.setCursor(Cursor.HAND));
             button.setOnMouseExited(e -> button.setCursor(Cursor.DEFAULT));
-            BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
-            Background background2 = new Background(backgroundFill);
+
             button.setBackground(background2);
             button.setOnAction(e -> window.setScene(scene2));
 
@@ -1792,36 +1865,47 @@ public class Playmatch extends Application {
             button.setAlignment(Pos.CENTER);
             button.setTranslateY(-10); // Adjust the value as needed
 
-            HBox vBoxMain = new HBox(vBox, vBox1);
+            HBox vBoxMain = new HBox(vBox , new Region(), vBox1);
             vBoxMain.setSpacing(100);
-            vBoxMain.setAlignment(Pos.CENTER);
+           vBoxMain.setAlignment(Pos.CENTER);
             VBox vBox2 = new VBox(vBoxMain,button);
             button.setAlignment(Pos.BOTTOM_RIGHT);
             button.setTranslateY(-20);
             vBox2.setSpacing(100);
-            vBox2.setAlignment(Pos.CENTER);
-            vBox2.setBackground(background);
+            vBox2.setPadding(new Insets(30));
+           vBox2.setAlignment(Pos.CENTER);
+          vBox2.setBackground(background);
+            vBoxMain.setTranslateY(50);
+
             Scene scene4 = new Scene(vBox2);
+           // vBox2.setBackground(Background.fill(Color.WHITE));
             window.setScene(scene4);
-        } else if (innings == 2) {
+
+        } else if (innings == 2)
+        {
             Label label = new Label("Innings 1");
+
+//            label.setBackground(background22);
             label.setAlignment(Pos.TOP_CENTER);
-            label.setTextFill(teamClr);
+           // label.setTextFill(teamClr);
             label.setFont(teamFont);
             VBox vboxBatting = createScorecardVBox(ballingTeam.getTeamName(), ballingTeam);
             VBox vboxBalling = createScorecardVBoxBalling(battingTeam.getTeamName(), battingTeam);
-            HBox hBox = new HBox(vboxBatting, vboxBalling);
-            VBox vBox = new VBox(label, hBox);
-
+            HBox hBox = new HBox(vboxBatting,new Region(), vboxBalling);
+            hBox.setSpacing(20);
+            VBox vBox = new VBox(label,new Region(), hBox);
+vBox.setSpacing(20);
             Label label1 = new Label("Innings 2");
+//            label1.setBackground(background22);
             label1.setAlignment(Pos.TOP_CENTER);
             label1.setFont(teamFont);
-            label1.setTextFill(teamClr);
+           // label1.setTextFill(teamClr);
             VBox vBox2Batting = createScorecardVBox(battingTeam.getTeamName(), battingTeam);
             VBox vbox2Balling = createScorecardVBoxBalling(ballingTeam.getTeamName(), ballingTeam);
-            HBox hBox1 = new HBox(vBox2Batting, vbox2Balling);
-            VBox vBox1 = new VBox(label1, hBox1);
-
+            HBox hBox1 = new HBox(vBox2Batting,new Region(), vbox2Balling);
+            hBox1.setSpacing(20);
+            VBox vBox1 = new VBox(label1,new Region(), hBox1);
+vBox1.setSpacing(20);
             Button button = new Button("Ball By Ball");
             button.setPrefSize(120, 60);
             Font buttonFont = Font.font("Arial", FontWeight.BOLD, 15);
@@ -1830,8 +1914,7 @@ public class Playmatch extends Application {
             button.setFont(buttonFont);
             button.setOnMouseEntered(e -> button.setCursor(Cursor.HAND));
             button.setOnMouseExited(e -> button.setCursor(Cursor.DEFAULT));
-            BackgroundFill backgroundFill = new BackgroundFill(Color.GREEN, null, null);
-            Background background2 = new Background(backgroundFill);
+
             button.setBackground(background2);
             button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             button.setTextAlignment(TextAlignment.CENTER);
@@ -1844,7 +1927,7 @@ public class Playmatch extends Application {
                 button.setVisible(false);
             }
 
-            HBox vBoxMain = new HBox(vBox, vBox1);
+            HBox vBoxMain = new HBox(vBox,new Region(), vBox1);
 
             vBoxMain.setSpacing(100);
             vBoxMain.setAlignment(Pos.CENTER);
@@ -1852,12 +1935,12 @@ public class Playmatch extends Application {
             button.setAlignment(Pos.BOTTOM_RIGHT);
             vBox2.setAlignment(Pos.CENTER);
             vBox2.setBackground(background);
+            vBox2.setTranslateY(50);
             vBox2.setSpacing(100);
             Scene scene4 = new Scene(vBox2);
             window.setScene(scene4);
         }
     }
-
 
 
     private void nextInnings() {
@@ -1898,7 +1981,8 @@ public class Playmatch extends Application {
                 label.setFont(teamFont);
                 label.setTextFill(teamClr);
                 
-                if (team1.totalScore > team2.totalScore){
+                if (team1.totalScore > team2.totalScore)
+                {
                     win = new Label();
                     win.setText(team1.getTeamName()+ " has won the match!");
                     win.setFont(teamFont);
@@ -1948,7 +2032,9 @@ public class Playmatch extends Application {
                 vBox.setSpacing(40);
                 Scene scene4 = new Scene(vBox);
                 window.setScene(scene4);
-            } else if (innings < 2) {
+            }
+            else if (innings < 2)
+            {
                 innings = innings + 1;
                 Label label = new Label("First Innings has been completed.");
                 label.setTextFill(teamClr);
