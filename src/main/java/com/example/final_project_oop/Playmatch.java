@@ -1655,7 +1655,11 @@ vBoxxx.setSpacing(8);
 
 
         button.setOnAction( e -> window.setScene(scene2));
-
+        if (innings == 2 && totalOvers == maxOvers)
+        {
+            button.setText("Back");
+            button.setOnAction(e -> nextInnings());
+        }
         scorecardPane.setCenter(vBox);
         scorecardPane.setBottom(buttonBox);
         scorecardPane.setTop(vBoxxx);
@@ -1881,31 +1885,60 @@ Label label1 = new Label("Innings 2");
            // vBox2.setBackground(Background.fill(Color.WHITE));
             window.setScene(scene4);
 
-        } else if (innings == 2)
+        }
+        else if (innings == 2)
         {
             Label label = new Label("Innings 1");
-
 //            label.setBackground(background22);
-            label.setAlignment(Pos.TOP_CENTER);
-           // label.setTextFill(teamClr);
-            label.setFont(teamFont);
-            VBox vboxBatting = createScorecardVBox(ballingTeam.getTeamName(), ballingTeam);
-            VBox vboxBalling = createScorecardVBoxBalling(battingTeam.getTeamName(), battingTeam);
-            HBox hBox = new HBox(vboxBatting,new Region(), vboxBalling);
+            //  label.setTextFill(teamClr);
+            label.setFont(teamFont1);
+
+            VBox vboxBatting = createScorecardVBox(battingTeam.getTeamName(), battingTeam);
+            VBox vboxBalling = createScorecardVBoxBalling(ballingTeam.getTeamName(), ballingTeam);
+            HBox hBox = new HBox(vboxBatting, vboxBalling);
             hBox.setSpacing(20);
+
             VBox vBox = new VBox(label,new Region(), hBox);
-vBox.setSpacing(20);
+            vBox.setSpacing(20);
+            vBox.setStyle("-fx-background-color: #f3f3f3;-fx-background-radius: 10");
+//vBox.setMinWidth(580);
+            vBox.setMaxWidth(650);
+            vBox.setPadding(new Insets(20,20,0,20));
+            vBox.setMinHeight(600);
+
             Label label1 = new Label("Innings 2");
 //            label1.setBackground(background22);
-            label1.setAlignment(Pos.TOP_CENTER);
-            label1.setFont(teamFont);
-           // label1.setTextFill(teamClr);
-            VBox vBox2Batting = createScorecardVBox(battingTeam.getTeamName(), battingTeam);
-            VBox vbox2Balling = createScorecardVBoxBalling(ballingTeam.getTeamName(), ballingTeam);
-            HBox hBox1 = new HBox(vBox2Batting,new Region(), vbox2Balling);
+            label1.setFont(teamFont1);
+            //   label1.setTextFill(teamClr);
+
+            VBox vBox2Batting = createScorecardVBox(ballingTeam.getTeamName(), ballingTeam);
+            VBox vbox2Balling = createScorecardVBoxBalling(battingTeam.getTeamName(), battingTeam);
+            HBox hBox1 = new HBox(vBox2Batting, vbox2Balling);
+            hBox1.setPadding(new Insets(20,0,0,0));
             hBox1.setSpacing(20);
-            VBox vBox1 = new VBox(label1,new Region(), hBox1);
-vBox1.setSpacing(20);
+            VBox vBox1 = new VBox(label1, hBox1);
+            vBox1.setSpacing(20);
+            vBox1.setStyle("-fx-background-color: #f3f3f3;-fx-background-radius: 10");
+//            vBox1.setMinWidth(580);
+            vBox1.setMaxWidth(650);
+            vBox1.setPadding(new Insets(20,20,0,20));
+            vBox1.setMinHeight(600);
+
+//            Button button = new Button("Ball By Ball");
+//            button.setPrefSize(120, 60);
+//            Font buttonFont = Font.font("Arial", FontWeight.BOLD, 15);
+//            Color buttonClr = Color.WHITE;
+//            button.setTextFill(buttonClr);
+//            button.setFont(buttonFont);
+//            button.setOnMouseEntered(e -> button.setCursor(Cursor.HAND));
+//            button.setOnMouseExited(e -> button.setCursor(Cursor.DEFAULT));
+//
+//            button.setBackground(background2);
+//            button.setOnAction(e -> window.setScene(scene2));
+//
+//// Set alignment to Pos.CENTER and adjust translation on the Y-axis
+//            button.setAlignment(Pos.CENTER);
+//            button.setTranslateY(-10); // Adjust the value as needed
             Button button = new Button("Ball By Ball");
             button.setPrefSize(120, 60);
             Font buttonFont = Font.font("Arial", FontWeight.BOLD, 15);
@@ -1916,34 +1949,35 @@ vBox1.setSpacing(20);
             button.setOnMouseExited(e -> button.setCursor(Cursor.DEFAULT));
 
             button.setBackground(background2);
-            button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            button.setTextAlignment(TextAlignment.CENTER);
-            button.setOnAction(e -> window.setScene(scene2));
 
+            HBox buttonBox = new HBox(button);
+            buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
+            buttonBox.setPadding(new Insets(30, 30, 30, 30));
 
-
-
-            if (innings == 2 && totalOvers == maxOvers) {
-                button.setVisible(false);
-            }
-
-            HBox vBoxMain = new HBox(vBox,new Region(), vBox1);
-
+            HBox vBoxMain = new HBox(vBox , new Region(), vBox1);
             vBoxMain.setSpacing(100);
             vBoxMain.setAlignment(Pos.CENTER);
-            VBox vBox2 = new VBox(vBoxMain,button);
-            button.setAlignment(Pos.BOTTOM_RIGHT);
+            VBox vBox2 = new VBox(vBoxMain,buttonBox);
+//            button.setAlignment(Pos.BOTTOM_RIGHT);
+//            button.setTranslateY(-20);
+            vBox2.setSpacing(100);
+            vBox2.setPadding(new Insets(30));
             vBox2.setAlignment(Pos.CENTER);
             vBox2.setBackground(background);
-            vBox2.setTranslateY(50);
-            vBox2.setSpacing(100);
+            vBoxMain.setTranslateY(50);
+            if (innings == 2 && totalOvers == maxOvers) {
+                button.setText("Back");
+                button.setOnAction(e -> nextInnings());
+            }
             Scene scene4 = new Scene(vBox2);
+            // vBox2.setBackground(Background.fill(Color.WHITE));
             window.setScene(scene4);
         }
     }
 
 
-    private void nextInnings() {
+    private void nextInnings()
+    {
         Font teamFont = Font.font("Arial",FontWeight.BOLD,20);
         Color teamClr = Color.WHITE;
 
